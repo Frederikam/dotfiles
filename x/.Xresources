@@ -23,3 +23,5 @@ urxvt*color15: #d0d0d0
 
 urxvt*font: xft:Fira Code:size=10
 urxvt*scrollBar: false
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
