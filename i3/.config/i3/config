@@ -100,20 +100,32 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+set $work1 "1:  Chrome"
+set $work2 "2:  Code"
+set $work3 "3: "
+set $work4 "4:  Chat"
+set $work5 "5:  Music"
+set $work6 "6"
+set $work7 "7"
+set $work8 "8"
+set $work9 "9"
+set $work0 "0"
+
+
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $work1
+bindsym $mod+2 workspace $work2
+bindsym $mod+3 workspace $work3
+bindsym $mod+4 workspace $work4
+bindsym $mod+5 workspace $work5
+bindsym $mod+6 workspace $work6
+bindsym $mod+7 workspace $work7
+bindsym $mod+8 workspace $work8
+bindsym $mod+9 workspace $work9
+bindsym $mod+0 workspace $work0
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+1 move container to workspace $work1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
@@ -180,6 +192,11 @@ exec_always feh --bg-scale wallpaper.jpg
 exec_always sh -c 'xrandr --output HDMI-0 --mode 1920x1080 --rate 60.00 --output DVI-I-1 --mode 1920x1080 --rate 60.00 --right-of HDMI-0'
 exec_always xrdb ~/.Xresources
 exec --no-startup-id compton # Hide ugly black box around albert
+
+# Move the current workspace to the next output
+# (effectively toggles when you only have two outputs)
+bindsym $mod+x move workspace to output right
+
 bar {
     i3bar_command $HOME/.config/polybar/launch.sh
 }
