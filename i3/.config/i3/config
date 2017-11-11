@@ -196,6 +196,7 @@ exec --no-startup-id compton # Hide ugly black box around albert
 # Move the current workspace to the next output
 # (effectively toggles when you only have two outputs)
 bindsym $mod+x move workspace to output right
+bindsym Print exec maim -s --format png /dev/stdout | copyq write image/png - && copyq select 0
 
 bar {
     i3bar_command $HOME/.config/polybar/launch.sh
