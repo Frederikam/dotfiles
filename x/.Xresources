@@ -1,6 +1,6 @@
 ! Molokai theme
 ! See: https://gist.github.com/vreon/845878
-urxvt*background: #101010
+! urxvt*background: #101010
 urxvt*foreground: #d0d0d0
 urxvt*cursorColor: #d0d0d0
 urxvt*color0: #101010
