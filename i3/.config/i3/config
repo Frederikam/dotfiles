@@ -197,8 +197,6 @@ exec_always feh --bg-scale wallpaper.jpg
 exec_always sh -c 'xrandr --output HDMI-0 --mode 1920x1080 --rate 60.00 --output DVI-I-1 --mode 1920x1080 --rate 60.00 --right-of HDMI-0'
 exec_always xrdb ~/.Xresources
 exec_always copyq
-exec_always killall tint2
-exec_always tint2
 exec --no-startup-id compton # Hide ugly black box around albert
 
 # Move the current workspace to the next output
