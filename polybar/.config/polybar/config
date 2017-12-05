@@ -52,8 +52,8 @@ module-margin-right = 2
 font-0 = "Tamsyn:pixelsize=12;0"
 font-1 = "FontAwesome:size=11:weight=Regular;0"
 
-modules-left = i3
-modules-center = 
+modules-left = ewmh
+modules-center = xwindow
 #modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 modules-right = filesystem neck-reminder xbacklight volume xkeyboard memory cpu wlan eth battery date powermenu
 
@@ -81,6 +81,25 @@ inherit = bar/base
 [bar/right]
 monitor = DVI-I-1
 inherit = bar/base
+
+[module/ewmh]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = true
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = false
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = false
 
 [module/xwindow]
 type = internal/xwindow
