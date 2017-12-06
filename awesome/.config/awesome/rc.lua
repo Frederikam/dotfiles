@@ -58,9 +58,9 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.tile.left,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
@@ -253,6 +253,9 @@ globalkeys = gears.table.join(
               {description = "go back", group = "tag"}),
     awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/lock.sh") end,
         {description = "lock", group = "awesome"}),
+    awful.key({                   }, "Print", function() awful.spawn("maim -s --format png /dev/stdout | copyq write "
+            .. "image/png - && copyq select 0") end,
+        {description = "screenshot", group = "awesome"}),
 
     awful.key({ modkey,           }, "j",
         function ()
