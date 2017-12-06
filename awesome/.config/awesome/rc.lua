@@ -41,8 +41,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/themes/default/theme.lua")
-
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+naughty.notify { text = gears.filesystem.get_themes_dir()}
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "nano"
@@ -59,17 +59,17 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
---    awful.layout.suit.tile.left,
---    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,
---    awful.layout.suit.fair,
---    awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral,
---    awful.layout.suit.spiral.dwindle,
---    awful.layout.suit.max,
---    awful.layout.suit.max.fullscreen,
---    awful.layout.suit.magnifier,
---    awful.layout.suit.corner.nw,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.spiral,
+    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.max,
+    awful.layout.suit.max.fullscreen,
+    awful.layout.suit.magnifier,
+    awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -78,7 +78,7 @@ awful.layout.layouts = {
 
 -- {{{ Helper functions
 local function client_menu_toggle_fn()
-    local instance
+    local instance = nil
 
     return function ()
         if instance and instance.wibox.visible then
@@ -162,8 +162,7 @@ local tasklist_buttons = gears.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
-
-
+--[[
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -177,11 +176,11 @@ local function set_wallpaper(s)
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+screen.connect_signal("property::geometry", set_wallpaper)--]]
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    --set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -227,10 +226,11 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
+
 root.buttons(gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 4, awful.tag.viewprev),
+    awful.button({ }, 5, awful.tag.viewnext)
 ))
 -- }}}
 
@@ -238,10 +238,10 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
---    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
---              {description = "view previous", group = "tag"}),
---    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
---              {description = "view next", group = "tag"}),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+              {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
@@ -283,13 +283,14 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Shift" }, "r", awesome.restart,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn("google-chrome-stable") end,
+        {description = "open Google Chrome4", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-
---    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
---              {description = "increase master width factor", group = "layout"}),
+    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+              {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
@@ -343,15 +344,9 @@ clientkeys = gears.table.join(
         end,
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
-              {description = "Quit", group = "client"}),
+              {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey,           }, "Return", function (c) os.execute(terminal)             end,
-              {description = "open terminal", group = "client"}),
-    awful.key({ modkey,           }, "l", function (c)
-        os.execute("sh $HOME/.config/lock.sh")
-    end,
-              {description = "lock the desktop", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
@@ -565,3 +560,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+require("autostart")
