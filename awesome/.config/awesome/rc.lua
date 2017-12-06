@@ -183,8 +183,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     --set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    awful.tag({ "1"}, s, awful.layout.layouts[1])
+    awful.tag({"1"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -399,6 +398,7 @@ for i = 1, 9 do
                       tagmgr.set_tag(i)
                   end,
                   {description = "view tag #"..i, group = "tag"}),
+        --[[
         -- Toggle tag display.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
@@ -408,15 +408,12 @@ for i = 1, 9 do
                          awful.tag.viewtoggle(tag)
                       end
                   end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
+                  {description = "toggle tag #" .. i, group = "tag"}),--]]
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              client.focus:move_to_tag(tag)
-                          end
+                          client.focus:move_to_tag(tagmgr.get_or_create_tag(i))
                      end
                   end,
                   {description = "move focused client to tag #"..i, group = "tag"}),

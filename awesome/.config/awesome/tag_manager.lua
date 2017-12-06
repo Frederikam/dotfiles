@@ -10,7 +10,7 @@ local awful = require("awful")
 
 local module = {}
 
-local names = {
+module.names = {
     "1",
     "2",
     "3",
@@ -32,6 +32,14 @@ function find_tag_by_number(tag_num)
     end
 end
 
+module.get_or_create_tag = function(tag_num)
+    local t = find_tag_by_number(tag_num)
+
+    if t then return t end
+
+    return awful.tag.add(module.names[tag_num])
+end
+
 module.set_tag = function(tag_num)
     --require("naughty").notify{text=tostring(tag_num)}
 
@@ -44,7 +52,7 @@ module.set_tag = function(tag_num)
     -- Or create a new tag instead
 
     if new_tag == nil then
-        new_tag = awful.tag.add(names[tag_num])
+        new_tag = awful.tag.add(module.names[tag_num])
     end
 
     new_tag:view_only()
