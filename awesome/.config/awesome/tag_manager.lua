@@ -66,9 +66,17 @@ module.move_by = function(offset)
     local num = tonumber(awful.screen.focused().selected_tag.name:sub(1, 1)) + offset
 
     if (offset > 0) then
-        while num < 9 and find_tag_by_number(num) ~= nil do num = num + 1 end
+        while num < 9
+                and find_tag_by_number(num) ~= nil
+                and awful.screen.focused() ~= find_tag_by_number(num).screen do
+            num = num + 1
+        end
     elseif (offset < 0) then
-        while num > 1 and find_tag_by_number(num) ~= nil do num = num - 1 end
+        while num > 1
+                and find_tag_by_number(num) ~= nil
+                and awful.screen.focused() ~= find_tag_by_number(num).screen do
+            num = num - 1
+        end
     end
 
     module.set_tag(num)
