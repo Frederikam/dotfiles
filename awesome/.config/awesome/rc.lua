@@ -135,8 +135,8 @@ local taglist_buttons = gears.table.join(
                                                   client.focus:toggle_tag(t)
                                               end
                                           end),
-                    awful.button({ }, 4, function(t) tagmgr.move_by(-1) end),
-                    awful.button({ }, 5, function(t) tagmgr.move_by( 1) end)
+                    awful.button({ }, 4, function(t) tagmgr.move_by( 1) end),
+                    awful.button({ }, 5, function(t) tagmgr.move_by(-1) end)
                 )
 
 local tasklist_buttons = gears.table.join(

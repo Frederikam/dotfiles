@@ -22,6 +22,10 @@ module.names = {
     "9"
 }
 
+module.get_tag_num = function(tag)
+    return tonumber(tag.name:sub(1, 1))
+end
+
 function find_tag_by_number(tag_num)
     for s in screen do
         for _, tag in ipairs(s.tags) do
@@ -32,12 +36,30 @@ function find_tag_by_number(tag_num)
     end
 end
 
+-- Make sure all tags are in order
+function sort_tags(screen)
+    local last
+    for i, v in ipairs(screen.tags) do
+        if last and module.get_tag_num(last) > module.get_tag_num(v) then
+            v:swap(last)
+            sort_tags(screen) -- Continue recursively
+            return
+        end
+
+        last = v
+    end
+end
+
 module.get_or_create_tag = function(tag_num)
     local t = find_tag_by_number(tag_num)
 
     if t then return t end
 
-    return awful.tag.add(module.names[tag_num])
+    t = awful.tag.add(module.names[tag_num])
+
+    sort_tags(t.screen)
+
+    return t
 end
 
 module.set_tag = function(tag_num)
@@ -53,17 +75,20 @@ module.set_tag = function(tag_num)
 
     if new_tag == nil then
         new_tag = awful.tag.add(module.names[tag_num])
+        sort_tags(new_tag.screen)
     end
 
     new_tag:view_only()
 
-    if new_tag ~= cur_tag and #cur_tag:clients() == 0 then
+    if cur_tag ~= nil
+        and new_tag ~= cur_tag
+        and #cur_tag:clients() == 0 then
         cur_tag:delete()
     end
 end
 
 module.move_by = function(offset)
-    local num = tonumber(awful.screen.focused().selected_tag.name:sub(1, 1)) + offset
+    local num = module.get_tag_num(awful.screen.focused().selected_tag) + offset
 
     if (offset > 0) then
         while num < 9
