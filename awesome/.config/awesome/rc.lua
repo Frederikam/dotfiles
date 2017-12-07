@@ -79,7 +79,7 @@ awful.layout.layouts = {
 
 -- {{{ Helper functions
 local function client_menu_toggle_fn()
-    local instance = nil
+    local instance
 
     return function ()
         if instance and instance.wibox.visible then
@@ -245,9 +245,9 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   function() tagmgr.move_by(-1) end,
+    awful.key({ modkey, "Control" }, "Left",   function() tagmgr.move_by(-1) end,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  function() tagmgr.move_by( 1) end,
+    awful.key({ modkey, "Control" }, "Right",  function() tagmgr.move_by( 1) end,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -296,7 +296,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn("google-chrome-stable") end,
-        {description = "open Google Chrome4", group = "launcher"}),
+        {description = "open Google Chrome", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -348,7 +348,32 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"})
 )
 
-clientkeys = gears.table.join(
+-- Directional keys
+local directions = {"Left", "Up", "Right", "Down" }
+local direction_keys = {}
+for i, dir in ipairs(directions) do
+    table.insert(direction_keys, awful.key({modkey}, dir,
+        function(c)
+            awful.client.focus.global_bydirection(dir:lower())
+        end,
+        {description = "move " .. dir:lower(), group = "client"}))
+
+    table.insert(direction_keys, awful.key({modkey, "Shift"}, dir,
+        function(c)
+            awful.client.swap.global_bydirection(dir:lower())
+        end,
+        {description = "swap " .. dir:lower(), group = "client"}))
+end
+
+local clientkeys = gears.table.join(
+    direction_keys[1],
+    direction_keys[2],
+    direction_keys[3],
+    direction_keys[4],
+    direction_keys[5],
+    direction_keys[6],
+    direction_keys[7],
+    direction_keys[8],
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
