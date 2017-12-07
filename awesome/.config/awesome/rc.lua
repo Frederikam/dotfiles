@@ -123,7 +123,7 @@ mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) t:view_only() end),
+                    awful.button({ }, 1, function(t) tagmgr.set_tag(tonumber(t.name:sub(1,1))) end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
@@ -183,7 +183,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     --set_wallpaper(s)
 
-    awful.tag({"1"}, s, awful.layout.layouts[1])
+    awful.tag(tagmgr.names, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
