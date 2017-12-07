@@ -42,8 +42,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-naughty.notify { text = gears.filesystem.get_themes_dir()}
+--beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init("/home/fred/.config/awesome/theme/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "nano"
@@ -313,10 +313,10 @@ globalkeys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
-              {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
-              {description = "select previous", group = "layout"}),
+    --awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
+    --          {description = "select next", group = "layout"}),
+    --awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
+    --          {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -382,7 +382,7 @@ local clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey,           }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
@@ -569,11 +569,11 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
+            --awful.titlebar.widget.floatingbutton (c),
+            --awful.titlebar.widget.maximizedbutton(c),
+            --awful.titlebar.widget.stickybutton   (c),
+            --awful.titlebar.widget.ontopbutton    (c),
+            --awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal
