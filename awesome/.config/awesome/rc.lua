@@ -196,7 +196,7 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, taglist_buttons)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
@@ -253,8 +253,9 @@ globalkeys = gears.table.join(
               {description = "go back", group = "tag"}),
     awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/lock.sh") end,
         {description = "lock", group = "awesome"}),
-    awful.key({                   }, "Print", function() awful.spawn("maim -s --format png /dev/stdout | copyq write "
-            .. "image/png - && copyq select 0") end,
+    awful.key({                   }, "Print", function()
+        awful.spawn("bash -c \"maim -s --format png /dev/stdout | copyq write image/png - && copyq select 0\"")
+    end,
         {description = "screenshot", group = "awesome"}),
 
     awful.key({ modkey,           }, "j",
@@ -443,7 +444,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          client.focus:move_to_tag(tagmgr.get_or_create_tag(i))
+                          client.focus:move_to_tag(tagmgr.get_tag(i))
                      end
                   end,
                   {description = "move focused client to tag #"..i, group = "tag"}),

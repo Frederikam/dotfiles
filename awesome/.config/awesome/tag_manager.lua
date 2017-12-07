@@ -36,55 +36,27 @@ function find_tag_by_number(tag_num)
     end
 end
 
--- Make sure all tags are in order
-function sort_tags(screen)
-    local last
-    for i, v in ipairs(screen.tags) do
-        if last and module.get_tag_num(last) > module.get_tag_num(v) then
-            v:swap(last)
-            sort_tags(screen) -- Continue recursively
-            return
+function find_tag_by_number_on_screen(tag_num, s)
+    for _, tag in ipairs(s.tags) do
+        if tag.name ~= nil and tonumber(tag.name:sub(1, 1)) == tag_num then
+            return tag
         end
-
-        last = v
     end
 end
 
-module.get_or_create_tag = function(tag_num)
+module.get_tag = function(tag_num)
     local t = find_tag_by_number(tag_num)
 
     if t then return t end
 
     t = awful.tag.add(module.names[tag_num])
 
-    sort_tags(t.screen)
-
     return t
 end
 
 module.set_tag = function(tag_num)
-    --require("naughty").notify{text=tostring(tag_num)}
-
-    local cur_tag = awful.screen.focused().selected_tag
-    local new_tag
     tag_num = math.max(math.min(tag_num, 9), 1)
-
-    new_tag = find_tag_by_number(tag_num)
-
-    -- Or create a new tag instead
-
-    if new_tag == nil then
-        new_tag = awful.tag.add(module.names[tag_num])
-        sort_tags(new_tag.screen)
-    end
-
-    new_tag:view_only()
-
-    if cur_tag ~= nil
-        and new_tag ~= cur_tag
-        and #cur_tag:clients() == 0 then
-        cur_tag:delete()
-    end
+    find_tag_by_number(tag_num):view_only()
 end
 
 module.move_by = function(offset)
@@ -92,19 +64,20 @@ module.move_by = function(offset)
 
     if (offset > 0) then
         while num < 9
-                and find_tag_by_number(num) ~= nil
-                and awful.screen.focused() ~= find_tag_by_number(num).screen do
+                and awful.screen.focused() ~= find_tag_by_number(num).screen
+                and #find_tag_by_number(num):clients() ~= 0 do
             num = num + 1
         end
     elseif (offset < 0) then
         while num > 1
-                and find_tag_by_number(num) ~= nil
-                and awful.screen.focused() ~= find_tag_by_number(num).screen do
+                and awful.screen.focused() ~= find_tag_by_number(num).screen
+                and #find_tag_by_number(num):clients() ~= 0 do
             num = num - 1
         end
     end
 
-    module.set_tag(num)
+    num = math.max(math.min(num, 9), 1)
+    find_tag_by_number_on_screen(num, awful.screen.focused()):view_only()
 end
 
 return module
