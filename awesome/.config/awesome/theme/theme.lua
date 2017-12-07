@@ -19,7 +19,7 @@ theme.bg_focus      = xrdb.color8
 theme.taglist_bg_focus = "#D59723"
 theme.taglist_fg_focus = "#000"
 theme.bg_urgent     = xrdb.color9
-theme.bg_minimize   = "#444444"
+theme.bg_minimize   = "#362835"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#aaaaaa"
