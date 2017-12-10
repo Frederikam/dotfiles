@@ -88,4 +88,13 @@ module.move_by = function(offset)
     find_tag_by_number_on_screen(num, awful.screen.focused()):view_only()
 end
 
+-- Filters tags in the taglist. Returns false when the tag is empty or only contains Polybar
+module.taglist_filter = function(tag)
+    local show = tag.selected
+    for _, v in ipairs(tag:clients()) do
+        if v.class ~= "Polybar" then show = true end
+    end
+    return show
+end
+
 return module
