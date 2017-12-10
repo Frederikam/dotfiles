@@ -123,7 +123,7 @@ mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) tagmgr.set_tag(tonumber(t.name:sub(1,1))) end),
+                    awful.button({ }, 1, function(t) tagmgr.set_tag(tonumber(t.name:sub(1,1)), t.screen) end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
@@ -217,7 +217,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-            wibox.widget.systray(),
+            --wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
         },

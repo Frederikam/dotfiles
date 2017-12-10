@@ -54,9 +54,17 @@ module.get_tag = function(tag_num)
     return t
 end
 
-module.set_tag = function(tag_num)
+module.set_tag = function(tag_num, screen)
     tag_num = math.max(math.min(tag_num, 9), 1)
-    find_tag_by_number(tag_num):view_only()
+    if screen then
+        if not find_tag_by_number_on_screen(tag_num, screen) then
+            find_tag_by_number(tag_num):view_only()
+        else
+            find_tag_by_number_on_screen(tag_num, screen):view_only()
+        end
+    else
+        find_tag_by_number(tag_num):view_only()
+    end
 end
 
 module.move_by = function(offset)
