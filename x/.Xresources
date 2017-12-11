@@ -22,7 +22,7 @@
 
 ! blue
 *.color4:       #0077BB
-*.color12:      #2671BC
+*.color12:      #005180
 
 ! magenta
 *.color5:       #7e40a5

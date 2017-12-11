@@ -16,8 +16,8 @@ theme.font          = "sans 10"
 
 theme.bg_normal     = xrdb.background
 theme.bg_focus      = xrdb.color8
-theme.taglist_bg_focus = "#D59723"
-theme.taglist_fg_focus = "#000"
+theme.taglist_bg_focus = xrdb.color12
+theme.taglist_fg_focus = "#FFF"
 theme.bg_urgent     = xrdb.color9
 theme.bg_minimize   = "#362835"
 theme.bg_systray    = theme.bg_normal
@@ -47,7 +47,7 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = dpi(0)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
