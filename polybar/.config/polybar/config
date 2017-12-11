@@ -406,7 +406,7 @@ screenchange-reload = true
 ;compositing-border = over
 
 [global/wm]
-margin-top = 5
+margin-top = 0
 margin-bottom = 5
 
 ; vim:ft=dosini
