@@ -21,8 +21,8 @@
 *.color11:      #ffba68
 
 ! blue
-*.color4:       #1414cb
-*.color12:      #5f5fee
+*.color4:       #0077BB
+*.color12:      #2671BC
 
 ! magenta
 *.color5:       #7e40a5
