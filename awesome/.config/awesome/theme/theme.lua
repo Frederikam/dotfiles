@@ -14,7 +14,7 @@ local theme = {}
 
 theme.font          = "sans 10"
 
-theme.bg_normal     = xrdb.background
+theme.bg_normal     = xrdb.color8
 theme.bg_focus      = xrdb.color8
 theme.taglist_bg_focus = xrdb.color12
 theme.taglist_fg_focus = "#FFF"
@@ -27,11 +27,18 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
+theme.titlebar_bg_focus = "#002D46"
+theme.tasklist_bg_focus = "#002D46"
+theme.titlebar_bg_normal = xrdb.background
+theme.tasklist_bg_normal = xrdb.background
+
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(0)
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
+
+
 
 -- There are other variable sets
 -- overriding the default one when
