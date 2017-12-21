@@ -123,7 +123,10 @@ mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) tagmgr.set_tag(tonumber(t.name:sub(1,1)), t.screen) end),
+                    awful.button({ }, 1, function(t)
+                        local num = tonumber(t.name:sub(1,1));
+                        tagmgr.determine(num, t.screen):view_only()
+                    end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
@@ -426,7 +429,7 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                      tagmgr.set_tag(i)
+                      tagmgr.determine(i):view_only()
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         --[[
@@ -444,7 +447,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          client.focus:move_to_tag(tagmgr.get_tag(i))
+                          client.focus:move_to_tag(tagmgr.determine(i))
                      end
                   end,
                   {description = "move focused client to tag #"..i, group = "tag"}),

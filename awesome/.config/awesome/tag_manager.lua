@@ -3,7 +3,8 @@
 -- User: fred
 -- Date: 12/6/17
 -- Time: 6:01 PM
--- To change this template use File | Settings | File Templates.
+--
+-- This script handles my tags. The first tag is special as all screens should have one able to contain tags
 --
 
 local awful = require("awful")
@@ -11,7 +12,7 @@ local awful = require("awful")
 local module = {}
 
 module.names = {
-    "1:  Chrome",
+    "1:  Buffer",
     "2:  Code",
     "3:  Code alt",
     "4: ",
@@ -26,49 +27,55 @@ module.get_tag_num = function(tag)
     return tonumber(tag.name:sub(1, 1))
 end
 
-function find_tag_by_number(tag_num)
-    for s in screen do
-        for _, tag in ipairs(s.tags) do
-            if tag.name ~= nil and tonumber(tag.name:sub(1, 1)) == tag_num then
-                return tag
-            end
-        end
-    end
-end
-
-function find_tag_by_number_on_screen(tag_num, s)
+function find_on_screen(s, num)
     for _, tag in ipairs(s.tags) do
-        if tag.name ~= nil and tonumber(tag.name:sub(1, 1)) == tag_num then
+        if tag.name ~= nil and tonumber(tag.name:sub(1, 1)) == num then
             return tag
         end
     end
 end
 
-module.get_tag = function(tag_num)
-    local t = find_tag_by_number(tag_num)
+function find_populated_tag(num)
+    for s in screen do
+        local tag = find_on_screen(s, num)
 
-    if t then return t end
+        if #tag:clients() ~= 0 then return tag end
+    end
+end
 
-    t = awful.tag.add(module.names[tag_num])
+-- Will first see if the tag exists anywhere with one client, or merely just get from the given screen
+module.determine = function(num, screen)
+    if not screen then screen = awful.screen.focused() end
 
-    return t
+    if num == 1 then
+        -- Buffer tag is special and is non-unique. Keep one for each screen
+        return find_on_screen(screen, 1)
+    elseif find_populated_tag(num) ~= nil then
+        -- A populated tag was found, potentially on some other screen.
+        -- Let's use the existing one regardless of the screen.
+        return find_populated_tag(num)
+    else
+        return find_on_screen(screen, num)
+    end
+
 end
 
 module.set_tag = function(tag_num, screen)
-    tag_num = math.max(math.min(tag_num, 9), 1)
-    if screen then
-        if not find_tag_by_number_on_screen(tag_num, screen) then
-            find_tag_by_number(tag_num):view_only()
-        else
-            find_tag_by_number_on_screen(tag_num, screen):view_only()
-        end
-    else
-        find_tag_by_number(tag_num):view_only()
-    end
+    module.get_tag(tag_num, screen):view_only()
 end
 
 module.move_by = function(offset)
     local num = module.get_tag_num(awful.screen.focused().selected_tag) + offset
+
+    local find_tag_by_number = function(tag_num)
+        for s in screen do
+            for _, tag in ipairs(s.tags) do
+                if tag.name ~= nil and tonumber(tag.name:sub(1, 1)) == tag_num then
+                    return tag
+                end
+            end
+        end
+    end
 
     if (offset > 0) then
         while num < 9
@@ -85,7 +92,7 @@ module.move_by = function(offset)
     end
 
     num = math.max(math.min(num, 9), 1)
-    find_tag_by_number_on_screen(num, awful.screen.focused()):view_only()
+    find_on_screen(awful.screen.focused(), num):view_only()
 end
 
 -- Filters tags in the taglist. Returns false when the tag is empty or only contains Polybar
