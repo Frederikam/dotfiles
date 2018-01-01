@@ -492,7 +492,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered
      }
     },
 
@@ -537,10 +537,6 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     --naughty.notify {text=c.class}
-
-    if awesome.startup and c.focusable then
-        client.focus = c
-    end
 
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
