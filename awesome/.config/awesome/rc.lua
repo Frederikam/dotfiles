@@ -9,6 +9,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -122,6 +124,8 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+
+awesome.set_preferred_icon_size(dpi(32))
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
