@@ -590,6 +590,20 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
+
+    if c.maximized then
+        awful.titlebar.hide(c)
+    else
+        awful.titlebar.show(c)
+    end
+end)
+
+client.connect_signal("property::maximized", function(c)
+    if c.maximized then
+        awful.titlebar.hide(c)
+    else
+        awful.titlebar.show(c)
+    end
 end)
 
 --[[
