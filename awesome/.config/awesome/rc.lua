@@ -260,7 +260,7 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/lock.sh") end,
+    awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/scripts/lock.sh") end,
         {description = "lock", group = "awesome"}),
     awful.key({                   }, "Print", function()
         awful.spawn("bash -c \"maim -s --format png /dev/stdout | copyq write image/png - && copyq select 0\"")
@@ -338,6 +338,11 @@ globalkeys = gears.table.join(
                   end
               end,
               {description = "restore minimized", group = "client"}),
+
+    awful.key({ "Control", "Shift" },            "u",     function ()
+        awful.spawn("sh /home/fred/.config/awesome/scripts/moe.sh")
+    end,
+        {description = "Upload file from clipboard", group = "launcher"}),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
