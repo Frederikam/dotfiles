@@ -8,7 +8,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 10"
+theme.font          = "Cantarell 12"
 
 theme.bg_normal     = xrdb.color8
 theme.bg_focus      = xrdb.color8
@@ -18,7 +18,7 @@ theme.bg_urgent     = xrdb.color9
 theme.bg_minimize   = "#362835"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
+theme.fg_normal     = "#ffffff"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
@@ -34,6 +34,12 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
+--[[
+theme.taglist_shape = function(cr, width, height)
+    --cairo.scale.cairo_scale(cr, 100, 100)
+    return gshape.powerline(cr, width, height)
+end--]]
+--theme.taglist_spacing = 8
 
 
 -- There are other variable sets
