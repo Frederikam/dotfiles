@@ -597,6 +597,17 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+
+client.disconnect_signal("request::geometry", awful.ewmh.geometry)
+client.connect_signal("request::geometry", function(c, ...)
+    if not c.maximized and c.class ~= "Polybar" then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+    return awful.ewmh.geometry(c, ...)
+end)
+
 --[[
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
