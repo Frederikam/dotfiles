@@ -12,6 +12,7 @@ local menubar = require("menubar")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local rules = require("awful.rules")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -600,7 +601,7 @@ end)
 
 client.disconnect_signal("request::geometry", awful.ewmh.geometry)
 client.connect_signal("request::geometry", function(c, ...)
-    if not c.maximized and c.class ~= "Polybar" then
+    if not c.maximized and rules.match_any(c, {type = { "normal", "dialog" }}) then
         awful.titlebar.show(c)
     else
         awful.titlebar.hide(c)
