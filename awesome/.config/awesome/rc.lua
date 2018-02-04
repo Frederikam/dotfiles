@@ -264,7 +264,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/scripts/lock.sh") end,
         {description = "lock", group = "awesome"}),
     awful.key({                   }, "Print", function()
-        awful.spawn("bash -c \"maim -s --format png /dev/stdout | copyq write image/png - && copyq select 0\"")
+        awful.spawn("flameshot gui")
     end,
         {description = "screenshot", group = "awesome"}),
 
@@ -542,6 +542,8 @@ awful.rules.rules = {
 
 local shouldHaveBorders = function(c)
     if c.class == "Polybar" then return false end
+    if c.class == "albert" then return false end
+    if c.fullscreen then return false end
     if c.floating then return true end
 
     --naughty.notify {text = tostring(c.class) .. " " .. tostring(c.floating)}
@@ -561,6 +563,8 @@ end
 local checkBorders = function()
     for _, c in ipairs(client.get()) do
         c.border_width = (shouldHaveBorders(c) and beautiful.border_width or 0)
+
+        if c.floating then c.border_width = c.border_width * 1.5 end
     end
 end
 

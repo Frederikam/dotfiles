@@ -31,8 +31,8 @@ theme.tasklist_bg_normal = xrdb.background
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(4)
 theme.border_normal = xrdb.background
-theme.border_focus  = xrdb.color12
-theme.border_marked = xrdb.color12
+theme.border_focus  = xrdb.color4
+theme.border_marked = xrdb.color4
 
 --[[
 theme.taglist_shape = function(cr, width, height)
