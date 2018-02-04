@@ -29,10 +29,10 @@ theme.titlebar_bg_normal = xrdb.background
 theme.tasklist_bg_normal = xrdb.background
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(0)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.border_width  = dpi(4)
+theme.border_normal = xrdb.background
+theme.border_focus  = xrdb.color12
+theme.border_marked = xrdb.color12
 
 --[[
 theme.taglist_shape = function(cr, width, height)

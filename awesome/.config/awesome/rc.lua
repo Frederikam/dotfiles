@@ -491,14 +491,15 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
+      properties = { border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
+                     titlebars_enabled = false,
+                     size_hints_honor = false
      }
     },
 
@@ -529,8 +530,7 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+    { rule_any = {class = { "polybar" } }, properties = { border_width = 0 }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -538,6 +538,31 @@ awful.rules.rules = {
     --   properties = { screen = 1, tag = "2" } },
 }
 -- }}}
+
+
+local shouldHaveBorders = function(c)
+    if c.class == "Polybar" then return false end
+    if c.floating then return true end
+
+    --naughty.notify {text = tostring(c.class) .. " " .. tostring(c.floating)}
+
+    for i, tag in ipairs(c:tags()) do
+        for j, other in ipairs(tag:clients()) do
+            if other.floating == false
+                    and other.class ~="Polybar"
+                    and other.minimized == false
+                    and other.window ~= c.window then return true end
+        end
+    end
+
+    return false
+end
+
+local checkBorders = function()
+    for _, c in ipairs(client.get()) do
+        c.border_width = (shouldHaveBorders(c) and beautiful.border_width or 0)
+    end
+end
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -554,7 +579,17 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    if awesome.startup then
+        checkBorders()
+    end
+
 end)
+
+client.connect_signal("tagged", checkBorders)
+client.connect_signal("untagged", checkBorders)
+client.connect_signal("property::window", checkBorders)
+client.connect_signal("property::size", checkBorders)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
@@ -571,42 +606,6 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            --awful.titlebar.widget.floatingbutton (c),
-            --awful.titlebar.widget.maximizedbutton(c),
-            --awful.titlebar.widget.stickybutton   (c),
-            --awful.titlebar.widget.ontopbutton    (c),
-            --awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
-
-
-client.disconnect_signal("request::geometry", awful.ewmh.geometry)
-client.connect_signal("request::geometry", function(c, ...)
-    if not c.maximized and rules.match_any(c, {type = { "normal", "dialog" }}) then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-    return awful.ewmh.geometry(c, ...)
 end)
 
 --[[
