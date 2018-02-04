@@ -15,7 +15,7 @@ theme.bg_focus      = xrdb.color8
 theme.taglist_bg_focus = xrdb.color12
 theme.taglist_fg_focus = "#FFF"
 theme.bg_urgent     = xrdb.color9
-theme.bg_minimize   = "#362835"
+theme.bg_minimize   = "#5d3e75"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#ffffff"
@@ -23,8 +23,8 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.titlebar_bg_focus = "#002D46"
-theme.tasklist_bg_focus = "#002D46"
+theme.titlebar_bg_focus = xrdb.color4
+theme.tasklist_bg_focus = xrdb.color4
 theme.titlebar_bg_normal = xrdb.background
 theme.tasklist_bg_normal = xrdb.background
 
