@@ -585,6 +585,11 @@ client.connect_signal("manage", function (c)
     end
 
     if awesome.startup then
+        if     c.class == "jetbrains-idea" then c:move_to_tag(tagmgr.determine(2))
+        elseif c.class == "SmartGit"       then c:move_to_tag(tagmgr.determine(4))
+        elseif c.class == "discord"        then c:move_to_tag(tagmgr.determine(5))
+        end
+
         checkBorders()
     end
 
