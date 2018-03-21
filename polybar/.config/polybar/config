@@ -52,7 +52,7 @@ module-margin-right = 2
 #font-2 = siji:pixelsize=10;1
 
 font-0 = "Tamsyn:pixelsize=12;0"
-font-1 = "FontAwesome:size=11:weight=Regular;0"
+font-1 = "Font Awesome 5 Pro Solid:size=11;0"
 
 modules-left = volume xbacklight
 modules-center = filesystem neck-reminder memory cpu wlan eth battery
@@ -82,7 +82,7 @@ monitor = HDMI-0
 inherit = bar/base
 
 [bar/right]
-monitor = DVI-I-1
+monitor = DVI-I-0
 inherit = bar/base
 
 [module/xwindow]
