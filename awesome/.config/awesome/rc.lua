@@ -501,9 +501,8 @@ awful.rules.rules = {
      }
     },
 
-    {
-        rule_any = {
-            role = {
+    { rule_any = {
+            type = {
                 "splash",
                 "toolbar",
                 "utility",
