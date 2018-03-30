@@ -587,8 +587,8 @@ client.connect_signal("manage", function (c)
     checkBorders()
 
     if not awesome.startup then -- Don't apply to restarts
-        if     c.class == "jetbrains-idea" then c:move_to_tag(tagmgr.determine(2))
-        elseif c.class == "SmartGit"       then c:move_to_tag(tagmgr.determine(4))
+        --if     c.class == "jetbrains-idea" then c:move_to_tag(tagmgr.determine(2))
+        if c.class == "SmartGit"       then c:move_to_tag(tagmgr.determine(4))
         elseif c.class == "discord"        then c:move_to_tag(tagmgr.determine(5))
         end
     end
