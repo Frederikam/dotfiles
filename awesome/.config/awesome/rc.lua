@@ -556,11 +556,15 @@ awful.rules.rules = {
 local shouldHaveBorders = function(c)
     if c.class == "Polybar" then return false end
     if c.type == "utility" then return false end
-    if c.type == "dialog" then return false end 
+    --string.sub(c.class, 1, 9) == "jetbrains"
+    if c.type == "dialog" and c.instance == "sun-awt-X11-XWindowPeer" then
+        --naughty.notify {text = c.instance}
+        return false
+    end
     if c.fullscreen then return false end
     if c.floating then return true end
 
-    --naughty.notify {text = tostring(c.class) .. " " .. tostring(c.floating)}
+    --naughty.notify {text = string.sub(c.class, 1, 8)}
 
     for i, tag in ipairs(c:tags()) do
         for j, other in ipairs(tag:clients()) do
