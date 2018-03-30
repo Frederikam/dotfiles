@@ -492,15 +492,28 @@ awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
       properties = { border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
                      titlebars_enabled = false,
                      size_hints_honor = false
      }
+    },
+
+    {
+        rule_any = {
+            role = {
+                "splash",
+                "toolbar",
+                "utility",
+                "normal"
+            }
+        },
+        properties = {
+            focus = awful.client.focus.filter,
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
+        }
     },
 
     -- Floating clients.
@@ -542,7 +555,8 @@ awful.rules.rules = {
 
 local shouldHaveBorders = function(c)
     if c.class == "Polybar" then return false end
-    if c.class == "albert" then return false end
+    if c.type == "utility" then return false end
+    if c.type == "dialog" then return false end 
     if c.fullscreen then return false end
     if c.floating then return true end
 
