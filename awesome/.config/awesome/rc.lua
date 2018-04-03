@@ -501,7 +501,8 @@ awful.rules.rules = {
      }
     },
 
-    { rule_any = {
+    { rule_any =
+        {
             type = {
                 "splash",
                 "toolbar",
@@ -588,7 +589,7 @@ end
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-    --naughty.notify {text=c.class}
+    --naughty.notify {text=c.type}
 
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.

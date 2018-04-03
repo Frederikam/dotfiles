@@ -8,7 +8,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "Cantarell 12"
+theme.font          = "awesomewm 12"
 
 theme.bg_normal     = xrdb.color8
 theme.bg_focus      = xrdb.color8
