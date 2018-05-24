@@ -71,6 +71,7 @@ bar_spacing = 1
 # 'stereo' mirrors both channels with low frequencies in center.
 # 'mono' averages both channels and outputs left to right lowest to highest frequencies.
 ; channels = stereo
+channels = mono
 
 # Raw output target. A fifo will be created if target does not exist.
 ; raw_target = /dev/stdout
@@ -121,7 +122,7 @@ waves = 1;
 # Set gravity percentage for "drop off". Higher values means bars will drop faster.
 # Accepts only non-negative values. 50 means half gravity, 200 means double. Set to 0 to disable "drop off".
 ; gravity = 100
-
+gravity = 300
 
 # In bar height, bars that would have been lower that this will not be drawn.
 ; ignore = 0
