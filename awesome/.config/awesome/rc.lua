@@ -492,28 +492,15 @@ awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
       properties = { border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
                      titlebars_enabled = false,
                      size_hints_honor = false
      }
-    },
-
-    { rule_any =
-        {
-            type = {
-                "splash",
-                "toolbar",
-                "utility",
-                "normal"
-            }
-        },
-        properties = {
-            focus = awful.client.focus.filter,
-            placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
-        }
     },
 
     -- Floating clients.
@@ -555,16 +542,11 @@ awful.rules.rules = {
 
 local shouldHaveBorders = function(c)
     if c.class == "Polybar" then return false end
-    if c.type == "utility" then return false end
-    --string.sub(c.class, 1, 9) == "jetbrains"
-    if c.type == "dialog" and c.instance == "sun-awt-X11-XWindowPeer" then
-        --naughty.notify {text = c.instance}
-        return false
-    end
+    if c.class == "albert" then return false end
     if c.fullscreen then return false end
     if c.floating then return true end
 
-    --naughty.notify {text = string.sub(c.class, 1, 8)}
+    --naughty.notify {text = tostring(c.class) .. " " .. tostring(c.floating)}
 
     for i, tag in ipairs(c:tags()) do
         for j, other in ipairs(tag:clients()) do
@@ -589,7 +571,7 @@ end
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-    --naughty.notify {text=c.type}
+    --naughty.notify {text=c.class}
 
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
@@ -605,8 +587,8 @@ client.connect_signal("manage", function (c)
     checkBorders()
 
     if not awesome.startup then -- Don't apply to restarts
-        --if     c.class == "jetbrains-idea" then c:move_to_tag(tagmgr.determine(2))
-        if c.class == "SmartGit"       then c:move_to_tag(tagmgr.determine(4))
+        if     c.class == "jetbrains-idea" then c:move_to_tag(tagmgr.determine(2))
+        elseif c.class == "SmartGit"       then c:move_to_tag(tagmgr.determine(4))
         elseif c.class == "discord"        then c:move_to_tag(tagmgr.determine(5))
         end
     end
@@ -650,3 +632,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 require("autostart")
+
