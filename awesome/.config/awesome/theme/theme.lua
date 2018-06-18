@@ -29,7 +29,7 @@ theme.titlebar_bg_normal = xrdb.background
 theme.tasklist_bg_normal = xrdb.background
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(4)
+theme.border_width  = dpi(2)
 theme.border_normal = xrdb.background
 theme.border_focus  = xrdb.color4
 theme.border_marked = xrdb.color4

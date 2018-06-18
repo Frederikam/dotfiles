@@ -548,6 +548,8 @@ local shouldHaveBorders = function(c)
 
     --naughty.notify {text = tostring(c.class) .. " " .. tostring(c.floating)}
 
+    return true
+    --[[
     for i, tag in ipairs(c:tags()) do
         for j, other in ipairs(tag:clients()) do
             if other.floating == false
@@ -557,14 +559,14 @@ local shouldHaveBorders = function(c)
         end
     end
 
-    return false
+    return false--]]
 end
 
 local checkBorders = function()
     for _, c in ipairs(client.get()) do
         c.border_width = (shouldHaveBorders(c) and beautiful.border_width or 0)
 
-        if c.floating then c.border_width = c.border_width * 1.5 end
+        --if c.floating then c.border_width = c.border_width * 1.5 end
     end
 end
 
