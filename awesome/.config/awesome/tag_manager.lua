@@ -12,12 +12,12 @@ local awful = require("awful")
 local module = {}
 
 module.names = {
-    "1:  Buffer",
-    "2:  Code",
-    "3:  Code alt",
+    "1: ",
+    "2: ",
+    "3: ",
     "4: ",
-    "5:  Chat",
-    "6:  Music",
+    "5: ",
+    "6: ",
     "7",
     "8",
     "9"
