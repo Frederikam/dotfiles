@@ -2,7 +2,7 @@
  
 sleep 0.1
 scrot /tmp/screen.png
-convert /tmp/screen.png -paint 4 /tmp/screen.png
+convert /tmp/screen.png -set colorspace Gray -separate -average /tmp/screen.png
  
 if [[ -f $HOME/.config/awesome/screen-lock.png ]]
 then
