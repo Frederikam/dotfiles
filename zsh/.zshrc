@@ -1,3 +1,6 @@
+HISTSIZE=100000
+SAVEHIST=100000
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -102,3 +105,4 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 
 export ANSIBLE_NOCOWS=1 # No cows kthx
+alias ssh='TERM=xterm ssh'
