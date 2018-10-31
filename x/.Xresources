@@ -21,8 +21,8 @@
 *.color11:      #ffba68
 
 ! blue
-*.color4:       #0077BB
-*.color12:      #005180
+*.color4:       #008fe2
+*.color12:      #0074b7
 
 ! magenta
 *.color5:       #7e40a5
@@ -45,3 +45,11 @@ urxvt*scrollBar: false
 urxvt*depth: 32
 urxvt.internalBorder: 20
 ! urxvt*background: rgba:0000/0000/0200/c800
+
+Xft.dpi: 192
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
