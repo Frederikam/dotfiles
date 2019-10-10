@@ -5,7 +5,7 @@ SAVEHIST=100000
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/fred/.oh-my-zsh
+  export ZSH=/home/frey/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -106,3 +106,6 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 
 export ANSIBLE_NOCOWS=1 # No cows kthx
 alias ssh='TERM=xterm ssh'
+
+source $HOME/.aliases
+export PATH="$PATH:/home/frey/.dotnet/tools"

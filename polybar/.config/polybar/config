@@ -9,12 +9,12 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222
+background = #000
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = #ccc
 ;foreground-alt = #555
-foreground-alt = #fff
+foreground-alt = #ccc
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
@@ -54,8 +54,8 @@ module-margin-right = 2
 font-0 = "Tamsyn:pixelsize=12;0"
 font-1 = "Font Awesome 5 Pro Solid:size=11;0"
 
-modules-left = volume xbacklight
-modules-center = filesystem neck-reminder memory cpu wlan eth battery
+modules-left = volume
+modules-center = filesystem memory cpu wlan battery
 #modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 #modules-right = filesystem neck-reminder xbacklight volume xkeyboard memory cpu wlan eth battery date 
 powermenu
@@ -89,7 +89,7 @@ inherit = bar/base
 monitor = eDP1
 inherit = bar/base
 height = 54
-line-size = 8
+line-size = 0
 module-margin-left = 2
 module-margin-right = 2
 font-0 = "Tamsyn:pixelsize=24;0"
@@ -232,37 +232,37 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = net1
+interface = wlp59s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = ${xrdb:color12:#222}
 label-connected = %essid%
 
-format-disconnected =
+format-disconnected = 
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-4 = 
+ramp-signal-3 = 
+ramp-signal-2 = 
+ramp-signal-1 = 
+ramp-signal-0 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
-[module/eth]
-type = internal/network
-interface = enp10s0
-interval = 3.0
+;[module/eth]
+;type = internal/network
+;interface = enp10s0
+;interval = 3.0
 
-format-connected-underline = ${xrdb:color12:#222}
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+;format-connected-underline = ${xrdb:color12:#222}
+;format-connected-prefix = " "
+;format-connected-prefix-foreground = ${colors.foreground-alt}
+;label-connected = %local_ip%
 
-format-disconnected =
+;format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
@@ -314,8 +314,8 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
-battery = BAT1
-adapter = ADP1
+battery = BAT0
+adapter = ADP0
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
@@ -391,7 +391,7 @@ type = custom/script
 ; Available tokens:
 ;   %counter%
 ; Command to be executed (using "/usr/bin/env sh -c [command]")
-exec = /home/fred/.config/polybar/neck-reminder.sh
+exec = /home/frey/.config/polybar/neck-reminder.sh
 
 ; Conditional command that, if defined, needs to exit successfully
 ; before the main exec command is invoked.

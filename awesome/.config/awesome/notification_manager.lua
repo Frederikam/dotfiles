@@ -8,16 +8,17 @@
 local naughty = require("naughty")
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
+local dpi = xresources.apply_dpi
 
 naughty.config.notify_callback = function (args)
-    args.height = 94
-    args.margin = 4
+    args.height = dpi(72)
+    args.margin = dpi(4)
 
     if args.icon then
         args.icon_size = args.height - args.margin * 2
-        args.width = 400 + args.icon_size
+        args.width = dpi(400 + args.icon_size)
     else
-        args.width = 400
+        args.width = dpi(400)
     end
 
     args.font = "sans 10"

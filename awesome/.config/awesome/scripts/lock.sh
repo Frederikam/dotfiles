@@ -1,6 +1,7 @@
 #!/bin/bash
  
 sleep 0.1
+rm /tmp/screen.png
 scrot /tmp/screen.png
 convert /tmp/screen.png -set colorspace Gray -separate -average /tmp/screen.png
  

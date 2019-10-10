@@ -47,9 +47,9 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 --beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init("/home/fred/.config/awesome/theme/theme.lua")
+beautiful.init("/home/frey/.config/awesome/theme/theme.lua")
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -261,7 +261,7 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/fred/.config/awesome/scripts/lock.sh") end,
+    awful.key({ modkey,           }, "l", function() awful.spawn("sh /home/frey/.config/awesome/scripts/lock.sh") end,
         {description = "lock", group = "awesome"}),
     awful.key({                   }, "Print", function()
         awful.spawn("flameshot gui")
@@ -341,7 +341,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     awful.key({ "Control", "Shift" },            "u",     function ()
-        awful.spawn("sh /home/fred/.config/awesome/scripts/moe.sh")
+        awful.spawn("sh /home/frey/.config/awesome/scripts/moe.sh")
     end,
         {description = "Upload file from clipboard", group = "launcher"}),
 

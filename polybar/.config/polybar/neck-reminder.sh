@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/python -u /home/fred/.config/polybar/neck-reminder.py
+/usr/bin/python -u /home/frey/.config/polybar/neck-reminder.py

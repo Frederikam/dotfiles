@@ -9,13 +9,13 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 theme.font          = "awesomewm 12"
+local accent        = "#1f2b5e"
 
-theme.bg_normal     = xrdb.color8
-theme.bg_focus      = xrdb.color8
-theme.taglist_bg_focus = xrdb.color12
-theme.taglist_fg_focus = "#FFF"
+theme.bg_normal     = "#000000"
+theme.bg_focus      = accent
+theme.taglist_bg_focus = xrdb.color4
 theme.bg_urgent     = xrdb.color9
-theme.bg_minimize   = "#5d3e75"
+theme.bg_minimize   = "#51216b"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#ffffff"
@@ -23,16 +23,16 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.titlebar_bg_focus = xrdb.color4
-theme.tasklist_bg_focus = xrdb.color4
-theme.titlebar_bg_normal = xrdb.background
-theme.tasklist_bg_normal = xrdb.background
+theme.titlebar_bg_focus = accent
+theme.tasklist_bg_focus = accent
+theme.titlebar_bg_normal = "#000"--xrdb.background
+theme.tasklist_bg_normal = "#000"--xrdb.background
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(2)
+theme.border_width  = dpi(1)
 theme.border_normal = xrdb.background
-theme.border_focus  = xrdb.color4
-theme.border_marked = xrdb.color4
+theme.border_focus  = "#5069ce"
+theme.border_marked = "#5069ce"
 
 --[[
 theme.taglist_shape = function(cr, width, height)
@@ -69,6 +69,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
+
+theme.notification_width = dpi(400)
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
